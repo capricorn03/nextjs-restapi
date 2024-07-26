@@ -2,7 +2,8 @@ import mongoose from 'mongoose';
 
 const MONGODB_URI = process.env.MONGODB_URI;
 
-const connect = async () => {
+const connectToDB = async () => {
+  mongoose.set('strictQuery', true);
   const connectionState = mongoose.connection.readyState;
 
   if (connectionState === 1) {
@@ -15,7 +16,7 @@ const connect = async () => {
   }
   try {
     mongoose.connect(MONGODB_URI!, {
-      dbName: 'nextrestapi',
+      dbName: 'news-app',
       bufferCommands: true,
     });
     console.log('Connected to MongoDB');
@@ -25,4 +26,4 @@ const connect = async () => {
   }
 };
 
-export default connect;
+export default connectToDB;
