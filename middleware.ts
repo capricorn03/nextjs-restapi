@@ -1,13 +1,17 @@
 import { NextResponse } from 'next/server';
+
+export const config = {
+  matcher: '/api/:path*',
+};
+
 const allowedOrigins = [
   'http://localhost:8081',
   'chrome-extension://ggfdeioihiohgoomdeghoeccgajbikgd',
   'https://example-2.com',
-  // ...
   'https://example-99.com',
 ];
 
-export function middleware(req: any) {
+export default function middleware(req: Request) {
   // retrieve the current response
   const res = NextResponse.next();
 
@@ -34,8 +38,3 @@ export function middleware(req: any) {
 
   return res;
 }
-
-// specify the path regex to apply the middleware to
-export const config = {
-  matcher: '/api/:path*',
-};
