@@ -1,6 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   async headers() {
+    const allowedOrigins = [
+      'chrome-extension://ggfdeioihiohgoomdeghoeccgajbikgd',
+      'http://localhost:8081',
+    ];
     return [
       {
         // matching all API routes
@@ -9,7 +13,13 @@ const nextConfig = {
           { key: 'Access-Control-Allow-Credentials', value: 'true' },
           {
             key: 'Access-Control-Allow-Origin',
-            value: 'chrome-extension://ggfdeioihiohgoomdeghoeccgajbikgd',
+            value: (req) => {
+              const origin = req.headers.origin;
+              if (allowedOrigins.includes(origin)) {
+                return origin;
+              }
+              return allowedOrigins[0];
+            },
           }, // replace this your actual origin
           {
             key: 'Access-Control-Allow-Methods',
