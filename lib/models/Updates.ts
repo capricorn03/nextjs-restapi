@@ -7,6 +7,9 @@ const UpdateSchema = new Schema(
       required: true,
       unique: true,
     },
+    link:{
+      type:String,
+    },
     description: {
       type: String,
     },

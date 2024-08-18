@@ -1,6 +1,7 @@
 import connectToDB from '@/lib/db';
 import Updates from '@/lib/models/Updates';
 import { NextResponse } from 'next/server';
+import { extractLink, generateSummary } from '@/lib/utils';
 
 export const GET = async () => {
   try {
@@ -16,8 +17,19 @@ export const GET = async () => {
 export const POST = async (request: Request) => {
   try {
     const body = await request.json();
+    let description = body.topic;
+    const link = extractLink(body.topic);
+    if (link) {
+      description = await generateSummary(link);
+    }
+
     await connectToDB();
-    const newUpdates = new Updates(body);
+    const newUpdates = new Updates({
+      topic: body.topic,
+      description: description,
+      link: link,
+    });
+    
     await newUpdates.save();
     return new NextResponse(
       JSON.stringify({
