@@ -19,7 +19,7 @@ export const POST = async (request: Request) => {
     const body = await request.json();
     let description = body.topic;
     const link = extractLink(body.topic);
-    body.topic = body.topic.replace(link, '');
+    body.topic = body.topic.replace(link, '.');
     if (link) {
       description = await generateSummary(link);
     }
