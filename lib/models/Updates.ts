@@ -7,11 +7,15 @@ const UpdateSchema = new Schema(
       required: true,
       unique: true,
     },
-    link:{
-      type:String,
+    link: {
+      type: String,
     },
     description: {
       type: String,
+    },
+    saved: {
+      type: Boolean,
+      default: false,
     },
   },
   {
