@@ -5,7 +5,8 @@ export const linkRegex = /(https?:\/\/[^\s]+)/g;
 export function extractLink(text: string) {
   const matches = text.match(linkRegex);
   const str = matches ? matches[0] : null;
-  return str; // Return the first match or null if no link is found
+  return str; 
+  // Return the first match or null if no link is found
 }
 
 export async function generateSummary( newsLink: string) {
